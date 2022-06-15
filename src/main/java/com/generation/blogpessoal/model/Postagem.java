@@ -16,33 +16,40 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-@Table(name = "tb_postagens") 
+@Table( name = "tb_postagens")
 public class Postagem {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private Long id; 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	@NotBlank(message = "O atributo título é Obrigatório e não pode utilizar espaços em branco!") 
-	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
-	private String titulo; 
-
-	@NotNull(message = "O atributo texto é Obrigatório!")
-	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres")
+	@NotBlank(message = "O atributo Titulo é obrigatório e não pode utilizar espaços em branco")
+	@Size(min = 5, max = 100, message = "O atributo Titulo deve conter no minimoo 5 e no maximo 100")
+	private String titulo;
+	
+	@NotNull(message = "O atributo Texto é obrigatório")
+	@Size( min = 10, max = 1000, message = "O atributo Texto deve conter no minimoo 10 e no maximo 1000")
 	private String texto;
-
+	
 	@UpdateTimestamp
 	private LocalDateTime data;
 	
 	@ManyToOne
-    @JsonIgnoreProperties("postagem")
-    private Tema tema;
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;
@@ -83,14 +90,5 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	
-
 }
